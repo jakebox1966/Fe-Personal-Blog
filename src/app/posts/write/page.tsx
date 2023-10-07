@@ -110,7 +110,7 @@ export default function PostWrite(props: IPostWriteProps) {
                         name='title'
                         placeholder='제목을 입력해주세요.'
                         onChange={titleHandler}
-                        className='placeholder:italic w-full text-xl outline-none md:text-2xl rounded-lg border border-gray-300 dark:bg-white py-3 pl-3' />
+                        className='placeholder:italic w-full text-xl outline-none md:text-2xl rounded-lg border border-gray-300 dark:text-gray-800  dark:bg-white py-3 pl-3' />
                 </div>
                 <div className='w-full'>
                     <input
@@ -119,9 +119,9 @@ export default function PostWrite(props: IPostWriteProps) {
                         value={subTitle}
                         placeholder='부제목을 입력해주세요.'
                         onChange={subTitleHandler}
-                        className='placeholder:italic w-full text-xs outline-none md:sm rounded-lg border border-gray-300 dark:bg-white py-3 pl-3' />
+                        className='placeholder:italic w-full text-xs outline-none md:sm rounded-lg border border-gray-300 dark:text-gray-800 dark:bg-white py-3 pl-3' />
                 </div>
-                <div className=''>
+                <div className='dark:text-gray-800'>
                     <QuillEditor setBody={setBody} body={body} />
                 </div>
 
