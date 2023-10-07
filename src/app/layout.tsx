@@ -1,6 +1,9 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Header from './common/layout/Header'
+import Footer from './common/layout/Footer'
+import Providers from './common/layout/providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,8 +18,20 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="ko">
+      <body className={`text-black body-font dark:text-white transition-colors duration-300 ${inter.className}`}>
+        <Providers>
+          <Header />
+          <main className='h-full min-h-screen mt-10'>
+            <section className="text-black body-font dark:text-gray-300">
+              <div className="w-full md:max-w-[768px] lg:max-w-[1024px] p-4 mx-auto min-h-screen">
+                {children}
+              </div>
+            </section>
+          </main>
+          <Footer />
+        </Providers>
+      </body>
     </html>
   )
 }
