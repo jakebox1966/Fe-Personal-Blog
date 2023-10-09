@@ -3,6 +3,7 @@ import QuillEditor from '@/app/common/editor/QuillEditor';
 import * as React from 'react';
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { signIn } from 'next-auth/react';
 // import { fetchOnePost } from '../[postId]/page';
 
 export interface IPostWriteProps {
@@ -20,9 +21,6 @@ export default function PostWrite(props: IPostWriteProps) {
 
     const searchParams = useSearchParams()
     const postId = searchParams.get('postId')
-    // if (searchParams.get("postId")) {
-    //     setIsUpdate(true)
-    // }
 
     React.useEffect(() => {
         if (postId) {
@@ -95,7 +93,6 @@ export default function PostWrite(props: IPostWriteProps) {
                     body: body
                 })
             })
-        const post = await result.json()
         router.refresh()
         router.push(`/posts/${postId}`)
     }
@@ -140,6 +137,9 @@ export default function PostWrite(props: IPostWriteProps) {
                         List
                     </div>
                 </Link>
+                <div onClick={() => signIn()} className='text-center border-2 rounded-lg px-3 py-3 font-bold cursor-pointer bg-white dark:bg-zinc-900 dark:border-gray-300 hover:text-gray-400'>
+                    login
+                </div>
             </div >
         </>
     );

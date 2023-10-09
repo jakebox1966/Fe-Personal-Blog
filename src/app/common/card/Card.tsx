@@ -6,12 +6,12 @@ export interface ICardProps {
 }
 
 export default function Card({ post }: ICardProps) {
-    const { _id, title, subTitle, publishedDate } = post
+    const { title, subTitle, publishedDate } = post
 
     return (
-        <div className='flex flex-col gap-2 border-2 px-3 py-3 rounded-lg max-h-[300px] min-h-[155px] hover:text-gray-400 cursor-pointer dark:border-gray-500'>
+        <div className='flex flex-col gap-2 border-2 px-8 py-5 rounded-lg max-h-[300px] min-h-[155px] hover:text-gray-400 cursor-pointer dark:border-gray-500'>
             <div className='mb-3'>
-                <h1 className='text-xl md:text-3xl truncate'>{title}</h1>
+                <h1 className='text-xl md:text-3xl truncate font-bold'>{title}</h1>
             </div>
             <div>
                 <h3 className='text-sm md:text-xl truncate'>{subTitle}</h3>

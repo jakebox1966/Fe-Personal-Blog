@@ -1,6 +1,7 @@
 import Card from '@/app/common/card/Card';
 import * as React from 'react';
 import Link from 'next/link';
+import CreateButton from './components/CreateButton';
 
 export interface IPostListProps {
 }
@@ -34,9 +35,7 @@ export default async function PostList(props: IPostListProps) {
         <>
             <div className='flex justify-center items-center'>
                 <div className='flex flex-col justify-center items-center w-full'>
-                    <Link href={"/posts/write"} className='w-full sticky top-0 custom_button dark:border-gray-500'>
-                        + New
-                    </Link>
+                    <CreateButton />
                     <div className='flex flex-col gap-2 mt-3 w-full'>
                         {posts?.map((post: IPost) => (
                             <Link key={post._id} href={`/posts/${post._id}`}>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Link from 'next/link'
-import DeleteButton from './DeleteButton';
+import DeleteButton from './components/DeleteButton';
+import ButtonContainer from './components/ButtonContainer';
 
 export interface IPostDetailProps {
     _id: string,
@@ -44,10 +45,10 @@ export default async function PostDetail({ params: { postId } }: Props) {
 
     return (
 
-        <div className='flex flex-col justify-center items-start gap-10' >
+        <div className='flex flex-col justify-center items-start break-word gap-10'>
             {/* 포스트 {postId}상세페이지 입니다. */}
-            <h1 className='text-5xl font-bold' > {title}</h1 >
-            <h4 className='text-2xl'>{subTitle}</h4>
+            <div className='text-5xl font-bold w-full leading-normal'>{title}</div >
+            <h4 className='text-2xl leading-normal break-word'>{subTitle}</h4>
             <div className='flex gap-3 text-sm'>
                 <p>Author</p>
                 <p>-</p>
@@ -55,12 +56,13 @@ export default async function PostDetail({ params: { postId } }: Props) {
             </div>
 
             <div>
-                <div className='ceditor' dangerouslySetInnerHTML={{ __html: body }} >
+                <div className='break-word' dangerouslySetInnerHTML={{ __html: body }} >
                 </div>
             </div>
 
             <div className='flex flex-col gap-3 mt-6 w-full md:flex-row'>
-                <Link href={"/posts"} className='flex-1'>
+                <ButtonContainer postId={_id} />
+                {/* <Link href={"/posts"} className='flex-1'>
                     <div className='text-center border-2 rounded-lg px-3 py-3 font-bold cursor-pointer bg-white dark:bg-zinc-900 dark:border-gray-300 hover:text-gray-400 basis-1/3'>
                         List
                     </div>
@@ -70,7 +72,7 @@ export default async function PostDetail({ params: { postId } }: Props) {
                         Update
                     </div>
                 </Link>
-                <DeleteButton postId={_id} />
+                <DeleteButton postId={_id} /> */}
             </div>
         </div>
     )

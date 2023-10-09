@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Post from "@/app/models/post";
 import dbConnect from "@/app/lib/dbConnection";
+import { verifyJwt } from "@/app/lib/jwt";
 export async function GET(req: NextRequest, { params }: any) {
     await dbConnect();
     console.log(params);
@@ -13,6 +14,13 @@ export async function GET(req: NextRequest, { params }: any) {
 }
 
 export async function DELETE(req: NextRequest, { params }: any) {
+    const accessToken = req.headers.get("authorization");
+    if (!accessToken || !verifyJwt(accessToken)) {
+        return NextResponse.json(
+            { error: "No Authorization" },
+            { status: 401 }
+        );
+    }
     await dbConnect();
     const { postId } = params;
 
@@ -22,6 +30,13 @@ export async function DELETE(req: NextRequest, { params }: any) {
 }
 
 export async function PATCH(req: NextRequest, { params }: any) {
+    const accessToken = req.headers.get("authorization");
+    if (!accessToken || !verifyJwt(accessToken)) {
+        return NextResponse.json(
+            { error: "No Authorization" },
+            { status: 401 }
+        );
+    }
     await dbConnect();
     const { title, subTitle, body } = await req.json();
     const { postId } = params;

@@ -1,6 +1,7 @@
 import Post from "./posts/page";
+import dbConnect from "@/app/lib/dbConnection";
 
-
+dbConnect()
 export default function Home() {
   return (
     <>
@@ -8,3 +9,4 @@ export default function Home() {
     </>
   )
 }
+1
