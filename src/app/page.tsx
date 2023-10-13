@@ -1,12 +1,7 @@
-import Post from "./posts/page";
+import { redirect } from "next/navigation"
 import dbConnect from "@/app/lib/dbConnection";
 
 dbConnect()
 export default function Home() {
-  return (
-    <>
-      <Post />
-    </>
-  )
+  redirect('/posts/list')
 }
-1

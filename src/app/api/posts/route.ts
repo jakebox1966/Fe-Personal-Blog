@@ -30,12 +30,26 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
+    const page: any = new URL(req.url).searchParams.get("page");
+
+    // console.log("page", page);
+
     await dbConnect();
-    const result = await Post.find()
-        .limit(10)
+    const posts = await Post.find()
+        .limit(5)
         .sort({ publishedDate: -1 })
+        .skip((page - 1) * 5)
         .lean()
         .exec();
+
+    const totalCount = await Post.countDocuments().exec();
+
+    const result = {
+        posts: posts,
+        totalCount: totalCount,
+    };
+
+    // console.log(result);
 
     return NextResponse.json(result);
 }

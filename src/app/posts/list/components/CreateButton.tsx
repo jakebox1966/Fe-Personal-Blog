@@ -9,7 +9,7 @@ export interface ICreateButtonProps {
 export default function CreateButton(props: ICreateButtonProps) {
 
     const { data: session } = useSession()
-    console.log(session)
+    // console.log(session)
 
     return (
         <>

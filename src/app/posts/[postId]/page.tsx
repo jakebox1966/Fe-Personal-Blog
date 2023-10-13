@@ -30,7 +30,7 @@ const fetchOnePost = async (postId: string) => {
     if (!result) return null
 
     const post = await result.json()
-    console.log(post)
+    // console.log(post)
     return post
 }
 

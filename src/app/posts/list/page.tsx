@@ -2,9 +2,19 @@ import Card from '@/app/common/card/Card';
 import * as React from 'react';
 import Link from 'next/link';
 import CreateButton from './components/CreateButton';
+import Pagination from './components/Pagination';
+import { cookies } from 'next/headers'
 
 export interface IPostListProps {
+
 }
+
+type Props = {
+    // searchParams: { [key: string]: string | string[] | undefined };
+    searchParams: {
+        page: number;
+    }
+};
 
 export interface IPost {
     _id: string,
@@ -14,9 +24,9 @@ export interface IPost {
     publishedDate: string
 }
 
-const fetchPosts = async () => {
+const fetchPosts = async (page: number) => {
 
-    const result = await fetch("http://localhost:3000/api/posts",
+    const result = await fetch(`http://localhost:3000/api/posts?page=${page}`,
         {
             cache: "no-store",
             method: 'GET',
@@ -28,8 +38,19 @@ const fetchPosts = async () => {
     return posts
 }
 
-export default async function PostList(props: IPostListProps) {
-    const posts = await fetchPosts()
+export default async function PostList({ searchParams }: Props) {
+
+    let page
+    if (searchParams.page === undefined) {
+        page = 1
+    } else {
+        page = searchParams.page
+    }
+    // console.log('searchParams', searchParams)
+    // console.log("page", page)
+    const result = await fetchPosts(page)
+
+    const { posts, totalCount } = result
 
     return (
         <>
@@ -43,6 +64,7 @@ export default async function PostList(props: IPostListProps) {
                             </Link>
                         ))}
                     </div>
+                    <Pagination page={(page)} totalCount={totalCount} />
                 </div>
             </div>
         </>

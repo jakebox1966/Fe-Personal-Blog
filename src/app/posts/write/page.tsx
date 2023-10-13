@@ -3,8 +3,7 @@ import QuillEditor from '@/app/common/editor/QuillEditor';
 import * as React from 'react';
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { signIn } from 'next-auth/react';
-// import { fetchOnePost } from '../[postId]/page';
+import { signIn, useSession } from 'next-auth/react';
 
 export interface IPostWriteProps {
     _id: string,
@@ -18,6 +17,10 @@ export default function PostWrite(props: IPostWriteProps) {
     const [subTitle, setSubtitle] = React.useState('')
     const [body, setBody] = React.useState('')
     const [isUpdate, setIsUpdate] = React.useState(false)
+
+    const { data: session } = useSession()
+
+    console.log(session)
 
     const searchParams = useSearchParams()
     const postId = searchParams.get('postId')
@@ -34,6 +37,7 @@ export default function PostWrite(props: IPostWriteProps) {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
+                            "authorization": session?.user.accessToken ? session?.user.accessToken : ''
                         },
                     }
                 )
@@ -66,6 +70,7 @@ export default function PostWrite(props: IPostWriteProps) {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
+                    "authorization": session?.user.accessToken ? session?.user.accessToken : ''
                 },
                 body: JSON.stringify({
                     title: title,
@@ -80,12 +85,14 @@ export default function PostWrite(props: IPostWriteProps) {
     }
 
     const updatePost = async (postId: string | null) => {
+
         const result = await fetch(`http://localhost:3000/api/posts/${postId}`,
             {
                 cache: "no-store",
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
+                    "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTIyNzA2NzliMzkzODJmMGMzYjA4NGUiLCJ1c2VybmFtZSI6InN0cmluZyIsImVtYWlsIjoic3RyaW5nIiwiX192IjowLCJpYXQiOjE2OTcyMDUwMDEsImV4cCI6MTY5NzIwODYwMX0.GQAkil39okmesvddqbIMO10VICBidyiMrC1SvQ1EHYc"
                 },
                 body: JSON.stringify({
                     title: title,

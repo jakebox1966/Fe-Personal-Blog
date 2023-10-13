@@ -4,10 +4,14 @@ import PostList from './list/page';
 export interface IPostProps {
 }
 
-export default function Post(props: IPostProps) {
+type Props = {
+    searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export default function Post({ searchParams }: Props) {
     return (
         <>
-            <PostList />
+            <PostList searchParams={searchParams} />
         </>
     );
 }
